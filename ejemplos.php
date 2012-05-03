@@ -12,6 +12,8 @@
    
 </head>
 <body>
+	<h1> D&iacute;a 1<h1>
+</p>
  <h1><?php echo($title) ?></h1>
  <p><i><?php echo($slogan) ?></i></p>
  <?php
@@ -92,5 +94,7 @@ echo $cantidad3;
 echo ' billetes de 50';
 ?>
 
+
+	<h1> D&iacute;a 2<h1>
 
 <body>
