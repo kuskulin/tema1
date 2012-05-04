@@ -9,100 +9,67 @@
 
    ";
 
+
+if(isset($_REQUEST["error"]) AND (!is_null ($_REQUEST["name"]))){
+
   if (isset($_REQUEST["name"])){
           $name=$_REQUEST["name"];
           $email=$_REQUEST["email"];
           printf ("<h2>Hola %s tu mail es  %s</h2>" ,$name, $email? $email : "-----");
-		  echo "<br/>";
+		  echo "<br/>";}  
   
   
   
-  
-  if (isset ($_REQUEST['mates'])){
-    	$math_flag = "ON";
+  if (isset ($_REQUEST['comida'])){
+    	echo " Eres aficionado a la comida <br/>";
             }
-  else{
-    	$math_flag = "OFF";
-            }
-
-  if (isset ($_REQUEST['fisica'])){
-    	$fis_flag = "ON";
-            }
- 	else{
-    	$fis_flag = "OFF";
-            }
-  echo "\$math_flag = ".$math_flag." \$fis_flag = ".$fis_flag;
+ 
+  if (isset ($_REQUEST['alcohol'])){
+    	echo " Eres aficionado al alcohol <br/>";
+           }
   		  echo "<br/>";
   
   
   
-  
-  if (isset($_REQUEST['subject'])){
-    $subject = $_REQUEST['subject'];
+ #parte del sexo
+    if (isset($_REQUEST['sexo'])){
+    $sexo = $_REQUEST['sexo'];
     }
     else{
-    $subject = "Not set" ;
+    $sexo = "Not set" ;
     }
-    echo "radio buton $subject <br>";
-			  echo "<br/>";
-			        if (isset($_REQUEST['textcontent'])){
-      $text_content = $_REQUEST['textcontent'];
-      }
-      else{
-      $text_content = "vacio";
-      }
+    echo "Tu sexo es $sexo <br>";
 
-      echo "text area = $text_content";
-      			  echo "<br/>";
-   
-   
-   
-   
-   if (isset($_REQUEST['dropdown']))
+ 
+    
+   if (isset($_REQUEST['edad']))
    {
-     $select = $_REQUEST['dropdown'];
+     $select = $_REQUEST['edad'];
    }
    else
    {
      $select = "Not entered";
    }
-   echo "select = $select";
+   echo "edad  = $select";
    echo "<br/>";
 
    
    					 
-   foreach ($_REQUEST['cerveza'] as $birras)
+   foreach ($_REQUEST['lenguajes'] as $lenguajes)
    {
-     echo $birras."<br>";
+     echo "programas en ".$lenguajes." <br>";
     }
 		  
 		  
 		  
-		  
-        if(is_uploaded_file($_FILES['archivo']['tmp_name']))
-        {
-                $nombreDirectorio = "Descargas/";
-                $idUnico = time();
-                $nombreFichero = $idUnico."_".$_FILES['archivo']['name'];
-                if(move_uploaded_file($_FILES['archivo']['tmp_name'], $nombreDirectorio.$nombreFichero))
-                {
-                        echo "Archivo subido correctamente";
-                }
-                else
-                {
-                        echo "No puede mover el archivo a su ubicaci?n final";
-                }
-        }
-        else
-        {
-                echo "No se ha podido subir el fichero";
-        }
-		  
-		  
-		  
-		  
-		  
-  }  else{
+ }
+ 
+ 
+ 
+ 
+else{
+          if (isset($_REQUEST["error"])) {print " Es necesario rellenar los campos nombre y email <br/>";}  		
+  	
           print "
           <br>
           <form method=\"POST\" enctype=\"multipart/form-data\" action=\"$_SERVER[PHP_SELF]\">
@@ -113,35 +80,39 @@
           <td>Tu email :</td><td> <input type=\"text\" name=\"email\" size=30></td>
           </table>
           
-          <input type=\"checkbox\" name=\"mates\" value=\"on\" /> Maths
-		  <input type=\"checkbox\" name=\"fisica\" value=\"on\" /> Physics
+
           
-          <input type=\"radio\" name=\"subject\" value=\"maths\" /> Maths
-          <input type=\"radio\" name=\"subject\" value=\"physics\" /> Physics
-		  
-		  <textarea name=\"textcontent\" cols=\"40\" rows=\"4\">
-          Type your text here...
-		  </textarea>			
-          
-          <select name=\"dropdown\">
-          <option value=\"Maths\" selected>Maths</option>
-          <option value=\"Physics\">Physics</option>
+          <br/>Edad
+          <select name=\"edad\">
+          <option value=\"18\" selected>18</option>
+          <option value=\"19\" selected>19</option>
+          <option value=\"20\" selected>20</option>
+          <option value=\"21\" selected>21</option>
+          <option value=\"22\" selected>22</option>
+          <option value=\"23\" selected>23</option>
           </select>
+          
+          
+          <br/>Sexo:           
+          <input type=\"radio\" name=\"sexo\" value=\"hombre\" /> Hombre
+          <input type=\"radio\" name=\"sexo\" value=\"mujer\" /> Mujer
 		  
-		  <select multiple name=\"cerveza[]\">
-   		  <option value=\"SanMiguel\">San Miguel</option>
-   		  <option value=\"Mahou\">Mahou</option>
-   		  <option value=\"Heineken\">Heineken</option>
-          <option value=\"Carlsberg\">Carlsberg</option>
-          <option value=\"Aguila\">Aguila</option>
+         
+		  <br/>Aficiones:	         
+          <input type=\"checkbox\" name=\"alcohol\" value=\"on\" /> Alcohol
+          <input type=\"checkbox\" name=\"comida\" value=\"on\" /> Comida
+         
+		  <br/> Lenguages de programacion
+		  <select multiple name=\"lenguajes[]\">
+   		  <option value=\"PHP\">PHP</option>
+   		  <option value=\"Python\">Python</option>
+   		  <option value=\"Perl\">Perl</option>
+          <option value=\"C++\">C++</option>
+          <option value=\"Java\">Java</option>
           </select><br>
 				
                 
-          <input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"5000000\">
-          <input type=\"file\" size=\"40\" name=\"archivo\">
-				
-				
-													         
+ 		  <input type=\"hidden\" name=\"error\" value=\"on\">											         
           <input type=\"submit\" value=\"Submit\"></form>
           <br><hr>
           ";
